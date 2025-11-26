@@ -6,35 +6,19 @@ menuBtn.addEventListener("click", () => {
     menu.style.display = menu.style.display === "flex" ? "none" : "flex";
 });
 
-// ================== FORMULÁRIO (só funciona se existir no HTML) ==================
-const form = document.getElementById("formulario");
-if (form) {
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const nome = document.getElementById("nome").value;
-        const mensagem = document.getElementById("mensagem").value;
-
-        if (nome.trim() === "" || mensagem.trim() === "") {
-            alert("Preencha todos os campos!");
-            return;
-        }
-
-        alert("Mensagem enviada com sucesso!");
-        form.reset();
-    });
-}
-
 // ================== MODAL DE IMAGEM ==================
 const imagens = document.querySelectorAll(".redacao-img");
-const zoomModal = document.getElementById("zoomModal");
-const zoomImg = document.getElementById("zoomImg");
-const closeModal = document.getElementById("closeModal");
+
+// pega SOMENTE o primeiro zoomModal que existe no HTML
+const zoomModal = document.querySelector("#zoomModal");
+const zoomImg = zoomModal.querySelector("#zoomImg");
+const closeModal = zoomModal.querySelector("#closeModal");
 
 // escala do zoom
 let scale = 1;
 let startDistance = 0;
 
-// Abrir modal com a imagem clicada
+// Abrir modal
 imagens.forEach(img => {
     img.addEventListener("click", () => {
         zoomModal.style.display = "flex";
@@ -44,7 +28,7 @@ imagens.forEach(img => {
     });
 });
 
-// Fechar modal no X
+// Fechar no X
 closeModal.addEventListener("click", () => {
     zoomModal.style.display = "none";
 });
@@ -60,19 +44,17 @@ zoomModal.addEventListener("click", (e) => {
 zoomImg.addEventListener("wheel", (e) => {
     e.preventDefault();
 
-    // aumenta/diminui zoom
     scale += e.deltaY * -0.0015;
-
-    // limites
     scale = Math.min(Math.max(scale, 0.5), 4);
 
     zoomImg.style.transform = `scale(${scale})`;
 });
 
-// ================== PINCH ZOOM NO CELULAR ==================
+// ================== PINCH-ZOOM NO CELULAR ==================
 zoomImg.addEventListener("touchstart", (e) => {
     if (e.touches.length === 2) {
         e.preventDefault();
+
         const [t1, t2] = e.touches;
         startDistance = Math.hypot(
             t2.clientX - t1.clientX,
