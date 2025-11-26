@@ -1,4 +1,4 @@
-
+// MENU HAMBÚRGUER
 const menuBtn = document.getElementById("menu-btn");
 const menu = document.getElementById("menu");
 
@@ -6,7 +6,7 @@ menuBtn.addEventListener("click", () => {
     menu.style.display = menu.style.display === "flex" ? "none" : "flex";
 });
 
-
+// ================== FORMULÁRIO (só funciona se existir no HTML) ==================
 const form = document.getElementById("formulario");
 if (form) {
     form.addEventListener("submit", (e) => {
